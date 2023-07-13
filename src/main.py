@@ -32,45 +32,32 @@ def init_app() -> Flask:
 
     app = Flask(__name__)
 
-    # Setando configurações da aplicação
-    from .settings import TestingConfig
+    # # Setando configurações da aplicação
+    # from .settings import TestingConfig
 
-    app.config.from_object(TestingConfig)
+    # app.config.from_object(TestingConfig)
 
-    # Configurando banco de dados
-    from .database import Base, DBConnectionHendler
+    # # Configurando banco de dados
+    # from .database import Base, DBConnectionHendler
 
-    db_connection = DBConnectionHendler()
-    engine = db_connection.get_engine()
+    # db_connection = DBConnectionHendler()
+    # engine = db_connection.get_engine()
 
-    # Criando um contexto para a aplicação.
-    # Referencia: https://flask.palletsprojects.com/en/2.1.x/appcontext/
+    # # Criando um contexto para a aplicação.
+    # # Referencia: https://flask.palletsprojects.com/en/2.1.x/appcontext/
     with app.app_context():
 
         # Registrando as Blueprints: https://flask.palletsprojects.com/en/2.1.x/blueprints/
 
-        from .blueprints import auth
 
-        app.register_blueprint(auth)
 
-        from .blueprints import dashboard_app
+        from .blueprints import fila
 
-        app.register_blueprint(dashboard_app)
+        app.register_blueprint(fila)
 
-        from .blueprints import drivers_app
-
-        app.register_blueprint(drivers_app)
-
-        from .blueprints import clients_app
-
-        app.register_blueprint(clients_app)
-
-        from .blueprints import revenues_app
-
-        app.register_blueprint(revenues_app)
 
         # Criando tabelas que não existem e estão
         # presentes na engine.
-        Base.metadata.create_all(engine)
+        # Base.metadata.create_all(engine)
 
         return app

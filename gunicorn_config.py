@@ -1,5 +1,5 @@
 workers = 1
-bind = 'unix:erp-mobilidade.sock'
+bind = 'unix:g4-api.sock'
 umask = 0o007
 reload = True
 
