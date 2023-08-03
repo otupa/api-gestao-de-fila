@@ -21,8 +21,7 @@ class Config:
     ALLOWED_EXTENSIONS = {
         'txt',
     }
-    DATABASE_CONNECTION = os.environ.get('DATABASE_CONNECTION')
-    print(DATABASE_CONNECTION)
+    DATABASE_CONNECTION: str = os.environ.get('DATABASE_CONNECTION')
 
 
 class TestingConfig(Config):
