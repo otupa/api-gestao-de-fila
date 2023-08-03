@@ -15,17 +15,14 @@ from dotenv import load_dotenv
 class Config:
     """Configurações globais para todo o projeto"""
 
-    user_dir = join(
-        '/home', getpass.getuser(), 'vars_apps', '.env_erp_mobilidade'
-    )
-    load_dotenv(user_dir)
-
+    load_dotenv()
     SECRET_KEY = os.environ.get('SECRET_KEY')
     UPLOAD_FOLDER = '/media'
     ALLOWED_EXTENSIONS = {
         'txt',
     }
     DATABASE_CONNECTION = os.environ.get('DATABASE_CONNECTION')
+    print(DATABASE_CONNECTION)
 
 
 class TestingConfig(Config):

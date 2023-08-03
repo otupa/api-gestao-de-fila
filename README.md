@@ -91,9 +91,10 @@ After=network.target
 [Service]
 User=root
 Group=www-data
-WorkingDirectory=/var/www/api-g4
-Environment="PATH=/var/www/api-g4/.venv/bin/gunicorn"
-ExecStart=/var/www/api-g4/.venv/bin/gunicorn --workers 3 --bind unix:/var/www/api-g4/app.sock -m 007 wsgi:app
+WorkingDirectory=/var/www/api-g4/api-gestao-fila
+Environment="PATH=/var/www/api-g4/.venv/bin"
+ExecStart=/var/www/api-g4/.venv/bin/gunicorn --workers 3 --bind unix:/var/www/api-g4/api-gestao-fila/app.sock -m 007 wsgi:app
+
 
 [Install]
 WantedBy=multi-user.target

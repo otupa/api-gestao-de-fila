@@ -1,6 +1,7 @@
 # pylint: disable=import-outside-toplevel
 """Aplication Factory"""
 
+import os
 from flask import Flask
 
 
@@ -29,19 +30,26 @@ def init_app() -> Flask:
     src para manter os objetos utilizados pela blueprints
 
     """
+    
 
     app = Flask(__name__)
 
-    # # Setando configurações da aplicação
-    # from .settings import TestingConfig
+    # Setando configurações da aplicação
+    from .settings import Config
 
-    # app.config.from_object(TestingConfig)
+    app.config.from_object(Config)
+    db_filename = './database.db'
 
-    # # Configurando banco de dados
-    # from .database import Base, DBConnectionHendler
+    # Verifica se o arquivo já existe
+    if not os.path.exists(db_filename):
+        # Cria um arquivo vazio
+        with open(db_filename, 'w'):
+            pass
+    # Configurando banco de dados
+    from .database import Base, DBConnectionHendler
 
-    # db_connection = DBConnectionHendler()
-    # engine = db_connection.get_engine()
+    db_connection = DBConnectionHendler()
+    engine = db_connection.get_engine()
 
     # # Criando um contexto para a aplicação.
     # # Referencia: https://flask.palletsprojects.com/en/2.1.x/appcontext/
@@ -51,13 +59,18 @@ def init_app() -> Flask:
 
 
 
-        from .blueprints import fila
+        from .blueprints import drivers_app
 
-        app.register_blueprint(fila)
+        app.register_blueprint(drivers_app)
+
+        from .blueprints import address_app
+
+        app.register_blueprint(address_app)
+
 
 
         # Criando tabelas que não existem e estão
         # presentes na engine.
-        # Base.metadata.create_all(engine)
+        Base.metadata.create_all(engine)
 
         return app
