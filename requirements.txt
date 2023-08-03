@@ -4,3 +4,4 @@ Werkzeug
 pandas
 pillow
 gunicorn
+pytest

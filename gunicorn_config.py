@@ -1,5 +1,5 @@
 workers = 1
-bind = 'unix:g4-api.sock'
+bind = 'unix:app.sock'
 umask = 0o007
 reload = True
 
